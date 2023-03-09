@@ -22,9 +22,4 @@ router.post('/', [
 
 router.get('/renew', validarJWT, revalidarToken );
 
-router.get('/', () => {
-    console.log('Entra por acá');
-})
-
-
 module.exports = router;
