@@ -47,9 +47,11 @@ const crearUsuario = async( req, res ) => {
 const loginUsuario = async( req, res ) => {
 
     const { email, password } = req.body;
+    console.log("Entra en el login");
 
     try {
         
+        console.log("Busca usuario");
         const usuario = await Usuario.findOne({ email });
 
         if ( !usuario ) {
@@ -59,6 +61,7 @@ const loginUsuario = async( req, res ) => {
             });
         }
 
+        console.log("Encripta pass");
         // Confirmar los passwords
         const validPassword = bcrypt.compareSync( password, usuario.password );
         if ( !validPassword ) {
@@ -68,9 +71,11 @@ const loginUsuario = async( req, res ) => {
             })
         }
 
+        console.log("Genera JWT");
         // Generar nuestro JWT
         const token = await generarJWT( usuario.id, usuario.name );
 
+        console.log("Devuelve RTA");
         res.json({
             ok: true,
             uid: usuario.id,
